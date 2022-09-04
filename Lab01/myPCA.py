@@ -24,9 +24,19 @@ class myPCA:
     def matrix_V(self):
         valores_propios, vectores_propios = np.linalg.eigh(
             self.matrix_correlaciones())
+
+        idx = valores_propios.argsort()[::-1] 
+        valores_propios = valores_propios[idx] 
+        vectores_propios = vectores_propios[:,idx]
+        print("???????????????????????")
         print(valores_propios)
         print(vectores_propios)
-        pass
+        print("???????????????????????")
+        return vectores_propios
+
 
     def matrix_C(self):
+
+        matrix_C = np.dot(self.matrix_data, self.matrix_V())
+        print(matrix_C)
         pass
