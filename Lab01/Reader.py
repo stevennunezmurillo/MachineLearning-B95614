@@ -1,19 +1,34 @@
 import pandas as pd
+from myPCA import myPCA
+from sklearn.preprocessing import StandardScaler
 
-fileName = 'C:/Users/B95614/Desktop/ML/MachineLearning-B95614/Lab01/titanic.csv'
-titanicData = pd.read_csv(fileName, header = 0)
+
+file_name = 'C:/Users/snmtr/Videos/UCR/ML/MachineLearning-B95614/Lab01/titanic.csv'
+
+titanic_data = pd.read_csv(file_name, header=0)
+
+titanic_data = titanic_data.drop(
+    ['Ticket', 'Name', 'PassengerId', 'Fare', 'Embarked', 'Cabin'], axis=1)
+
+titanic_data = titanic_data.dropna()
+
+titanic_data = pd.get_dummies(titanic_data, columns=['Sex'])
+
+matrix_titanic = titanic_data.to_numpy()
 
 
-titanicData = titanicData.drop(['Ticket', 'Name', 'PassengerId', 'Fare', 'Embarked', 'Cabin'], axis = 1)
+# print(titanic_data)
 
-titanicData = titanicData.dropna()
+#print('\nNumpy Array\n----------\n', matrix_titanic)
 
-titanicData = pd.get_dummies(titanicData, columns=['Sex'])
 
-matrixTitanic = titanicData.to_numpy()
-
+result = myPCA(matrix_titanic)
+result.centrar_reducir()
 
 print("------------------------------------")
-print(titanicData)
-
-print('\nNumpy Array\n----------\n', matrixTitanic)
+"""
+scaler = StandardScaler()
+df_scaled = scaler.fit_transform(titanic_data)
+print(df_scaled)
+"""
+result.matrix_V()
