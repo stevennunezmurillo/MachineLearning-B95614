@@ -25,18 +25,20 @@ class myPCA:
         valores_propios, vectores_propios = np.linalg.eigh(
             self.matrix_correlaciones())
 
-        idx = valores_propios.argsort()[::-1] 
-        valores_propios = valores_propios[idx] 
-        vectores_propios = vectores_propios[:,idx]
-        print("???????????????????????")
-        print(valores_propios)
-        print(vectores_propios)
-        print("???????????????????????")
-        return vectores_propios
-
+        idx = valores_propios.argsort()[::-1]
+        valores_propios = valores_propios[idx]
+        vectores_propios = vectores_propios[:, idx]
+        return [vectores_propios, valores_propios]
 
     def matrix_C(self):
 
-        matrix_C = np.dot(self.matrix_data, self.matrix_V())
-        print(matrix_C)
-        pass
+        matrix_C = np.dot(self.matrix_data, self.matrix_V()[0])
+        return matrix_C
+
+    def inercias(self):
+        valores_propios = self.matrix_V()[1]
+
+        for i in range(len(valores_propios)):
+            valores_propios[i] = valores_propios[i]/len(self.matrix_data[0])
+
+        return valores_propios
