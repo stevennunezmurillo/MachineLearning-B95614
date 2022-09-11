@@ -7,6 +7,7 @@ class myPCA:
         self.matrix_data = matrix
 
     def centrar_reducir(self):
+        
         promedio = self.matrix_data.mean(axis=0)
         desviacion = self.matrix_data.std(axis=0)
 
@@ -16,13 +17,15 @@ class myPCA:
                     self.matrix_data[fila][columna]-promedio[columna])/desviacion[columna]
 
     def matrix_correlaciones(self):
+        
         transpuesta = self.matrix_data.transpose()
         matrix_correlacion = 1/len(self.matrix_data) * \
             np.dot(transpuesta, self.matrix_data)
         return matrix_correlacion
 
     def matrix_V(self):
-        valores_propios, vectores_propios = np.linalg.eigh(
+        
+        valores_propios, vectores_propios = np.linalg.eig(
             self.matrix_correlaciones())
 
         idx = valores_propios.argsort()[::-1]
@@ -36,6 +39,7 @@ class myPCA:
         return matrix_C
 
     def inercias(self):
+        
         valores_propios = self.matrix_V()[1]
 
         for i in range(len(valores_propios)):
