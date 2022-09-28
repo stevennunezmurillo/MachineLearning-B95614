@@ -34,7 +34,7 @@ def score(y_true, y_predict):
         
     #print(score_r2)
 
-def fit(x, y, max_epochs=100, threshold=0.01, learning_rate=0.001, momentum=0, decay=0, error='mse', regularization='none', lambdas = 0):
+def fit(x, y, max_epochs=100, threshold=0.01, learning_rate=1e-7, momentum=0, decay=0, error='mse', regularization='none', lambdas = 0):
     
     #Se agrega el bias  
     x.insert(0, "ones", 1, allow_duplicates=False)
@@ -64,6 +64,8 @@ def fit(x, y, max_epochs=100, threshold=0.01, learning_rate=0.001, momentum=0, d
         coeficients = new_coeficients(coeficients, change, learning_rate)
         learning_rate = learning_rate/(1+decay)
         epoch+=1
+        
+    print("-----------------")
 
     return coeficients
         
@@ -116,7 +118,7 @@ def main():
     x = pd.read_csv("../data/fish_perch.csv")
     y = np.array([x['Weight']]).transpose()
     x.drop(['Weight'], axis=1, inplace = True)
-
+    
     print(fit(x, y))
 
 
