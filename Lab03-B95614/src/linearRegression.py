@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Tue Sep 27 22:26:26 2022
 
@@ -7,7 +6,7 @@ Created on Tue Sep 27 22:26:26 2022
 
 from xml.sax import SAXNotSupportedException
 
-import predict 
+import utility 
 import random
 import numpy as np
 import pandas as pd
@@ -38,12 +37,12 @@ class LinearRegression:
             
             #Se selecciona las mejoras para el calculo del error
             if (regularization == 'l1' or regularization == 'lasso'):
-                current_error = self.lasso(predict.MSE(y, xc_pred), lambdas, coeficients)
+                current_error = self.lasso(utility.MSE(y, xc_pred), lambdas, coeficients)
             else:
                 if (regularization == 'l2' or regularization == 'ridge'):
-                    current_error = self.ridge(predict.MSE(y, xc_pred), lambdas, coeficients)
+                    current_error = self.ridge(utility.MSE(y, xc_pred), lambdas, coeficients)
                 else:
-                    current_error = predict.MSE(y, xc_pred)
+                    current_error = utility.MSE(y, xc_pred)
                     
             #Se almacena el error para tener control del error en cada epoca
             epoch_error.append(current_error)
@@ -72,7 +71,10 @@ class LinearRegression:
             epoch+=1
 
         return coeficients
-            
+    
+    #----------------------------------------------------------------------------------
+    #Métodos para el algoritmo de RG
+    
     #Calcula el predict de xc
     def xc_matrix_gen(self, x, c):
         return np.dot(x,c)
@@ -97,6 +99,7 @@ class LinearRegression:
     def ridge(self, error_mse, lambdas, coeficients):
         return error_mse + lambdas + sum((coeficients.transpose()[0])**2)
 
+    #----------------------------------------------------------------------------------
     #Método para el calculo de predicciones
     def predict(self, x, coeficients):
         

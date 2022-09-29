@@ -1,9 +1,13 @@
+"""
+Created on Tue Sep 27 22:33:25 2022
+
+@author: Steven Nuñez -B95614
+"""
+
 from msilib.schema import ServiceInstall
 from ssl import _create_default_https_context
 from tkinter import Y
 from xml.sax import SAXNotSupportedException
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import r2_score
 
 import numpy as np
 import pandas as pd
@@ -22,11 +26,8 @@ def MSE(y_true, y_predict):
     return error
     
 
-#Método de Coeficiente de determinación (R2) 
 def score(y_true, y_predict):
     
-    #r2 = r2_score(y_true, y_predict)
-
     
     first_sum = sum(((y_true[0] - y_predict[0])**2))
     mean = y_true[0].mean()
@@ -34,7 +35,7 @@ def score(y_true, y_predict):
     
     score_r2 = (second_sum-first_sum)/second_sum
     
-    return r2_score(y_true[0], y_predict[0])
+    return score_r2
      
         
 
