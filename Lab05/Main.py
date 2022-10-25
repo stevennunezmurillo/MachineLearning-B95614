@@ -6,6 +6,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd
+from sklearn.metrics import classification_report
 
 #Verificando si torch.cuda está disponible
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -32,7 +33,7 @@ if entrenado == False:
     
     convNN.train()
     # Entrenamiento del modelo
-    for epoch in range(0, 100):
+    for epoch in range(0, 200):
         
         x_train.to(device)
         y_train.to(device)
@@ -86,3 +87,5 @@ df_cm = pd.DataFrame(cf_matrix/np.sum(cf_matrix) *10, index = [i for i in names]
 plt.figure(figsize = (12,7))
 sn.heatmap(df_cm, annot=True)
 plt.savefig('output.png')
+
+print(classification_report(y_true, y_pred, target_names=names))
