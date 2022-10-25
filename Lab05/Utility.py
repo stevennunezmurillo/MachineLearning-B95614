@@ -34,7 +34,7 @@ def load_data():
     data = unpickle(DIRECTORY+"/test_batch")
     x_test = data[b'data']
     y_test = data[b'labels']
-
+    
     x_train = torch.Tensor(x_train)
     y_train = torch.Tensor(y_train)
     x_test = torch.Tensor(x_test)

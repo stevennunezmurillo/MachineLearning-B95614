@@ -36,9 +36,7 @@ class ConvNN(nn.Module):
         
         x = self.process(x)
         x = self.flatten(x)
-        x = x.view(x.shape, 1)
-        print("Tensooor")
-        print(x.shape)
+
         out =  self.denseProcess(x)
         
         
